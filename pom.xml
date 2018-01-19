@@ -47,11 +47,12 @@
 	    <version>2.4</version>
 	    <classifier>jdk15</classifier>
 	</dependency>
-	<dependency>  
-	    <groupId>org.python</groupId>  
-	    <artifactId>jython</artifactId>  
-	    <version>2.7-b1</version>  
-	</dependency> 
+	<dependency>
+	    <groupId>org.jvnet.hudson.plugins</groupId>
+	    <artifactId>jython</artifactId>
+	    <version>1.1</version>
+	</dependency>
+ 
 	<dependency>
 	    <groupId>javax.mail</groupId>
 	    <artifactId>mail</artifactId>
