@@ -18,7 +18,7 @@ public class WxService
 		if(wxConfigProvider.getAppId()!=null && !"".equals(wxConfigProvider.getAppId())){
 			return service;
 		}else{
-			return WxService.buildWxService("AppId","Secret");
+			return WxService.buildWxService("AppId自己填写","Secret自己填写");
 		}
 	}
 	
