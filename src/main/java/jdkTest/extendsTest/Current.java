@@ -11,4 +11,7 @@ public class Current extends Father{
 		Current c = new Current();
 		c.grand();
 	}
+	public void cuPrint(){
+		System.out.println("cuPrint");
+	}
 }
