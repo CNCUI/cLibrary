@@ -1,0 +1,5 @@
+1.定义安卓系统接口，里面有androidRun方法;安卓系统有很多种类型的手机，比如华为   (interface Android)
+2.定义华为手机类实现安卓接口  (class Huawei implements Android)
+3.由于ios系统只有苹果手机使用，故不需要ios接口；定义苹果手机类，里面有iosRun方法 (class Apple)
+4.由于symbian系统只有诺基亚手机使用，故不需要symbian接口；定义诺基亚手机类，里面有symbianRun方法 (class Symbian)
+5.定义适配器类，通过适配器，使android，ios和symbian都能运行 (class PhoneAdapte)
