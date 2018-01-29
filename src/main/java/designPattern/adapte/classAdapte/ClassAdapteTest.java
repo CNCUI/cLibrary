@@ -1,8 +1,8 @@
 package designPattern.adapte.classAdapte;
 
-public class objectAdapteTest {
+public class ClassAdapteTest {
 	public static void main(String[] args) {
-		ObjectAdapte obj = new ObjectAdapte();
+		ClassAdapte obj = new ClassAdapte();
 		//调用具体类的适配方法
 		obj.androidRun();
 		obj.iosRun();

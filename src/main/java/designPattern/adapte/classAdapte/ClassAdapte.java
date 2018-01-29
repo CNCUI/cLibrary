@@ -10,7 +10,7 @@ import designPattern.adapte.objAdapte.Symbian;
  * @author Cao
  *
  */
-public class ObjectAdapte extends Apple implements AndroidInterface,IosInterface,SymbianInterface{
+public class ClassAdapte extends Apple implements AndroidInterface,IosInterface,SymbianInterface{
 
 	@Override
 	public void androidRun() {
