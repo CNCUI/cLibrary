@@ -44,7 +44,7 @@ public class FilterTest {
 			bu.append("Person[name:").append(p.getName());
 			bu.append(",skin:").append(p.getSkin());
 			bu.append(",sex:").append(p.getSex());
-			bu.append(",beautiful:").append(p.getBeautiful()).append("]");
+			bu.append(",beautiful:").append(p.getBeautiful()).append("]\n");
 		}
 		return bu.toString();
 	}
