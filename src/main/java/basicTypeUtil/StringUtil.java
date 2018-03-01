@@ -35,4 +35,17 @@ public class StringUtil {
 		m.put("cc", "cc");
 		System.out.println(isBlank(m.get("cc")));
 	}
+	
+//	public static void main(String[] args) {
+//		String a = "a" + "b";
+//		String b = a;
+//		String b2 = "a" + new String("b");
+//		String c = new String(a);
+//		System.out.println(a==c);//false
+//		System.out.println(a.equals(c));//true
+//		
+//		System.out.println(a==b);//true
+//		System.out.println(a==b2);//false
+//		
+//	}
 }
