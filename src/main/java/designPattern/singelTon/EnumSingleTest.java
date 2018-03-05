@@ -12,6 +12,11 @@ public class EnumSingleTest {
 	}
 }
 
+/**
+ * 枚举实现常量类
+ * @author Cao
+ *
+ */
 enum SeasonsEnum{
     /**0-春天 */  
     SPRING((short)0, "春天", "Spring"),  

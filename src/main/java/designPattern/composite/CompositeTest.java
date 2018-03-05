@@ -1,5 +1,10 @@
 package designPattern.composite;
 
+/**
+ * 组合模式
+ * @author Cao
+ *
+ */
 public class CompositeTest {
 
 	public static void main(String[] args) {

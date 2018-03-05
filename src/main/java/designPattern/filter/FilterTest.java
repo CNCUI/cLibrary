@@ -23,18 +23,18 @@ public class FilterTest {
 		list.add(p5);
 		
 		SkinFilter skinFilter = new SkinFilter("white");
-		List<Person> whitelist = skinFilter.choose(list);
+		List<Person> whitelist = skinFilter.choose(list);//过滤出Skin为white的人
 //		System.out.println(toString(whitelist));
 		
 		SexFilter sexFilter = new SexFilter("women");
-		List<Person> womenlist = sexFilter.choose(list);
+		List<Person> womenlist = sexFilter.choose(list);//过滤出Sex为women的人
 //		System.out.println(toString(womenlist));
 		
 		BeautifulFilter beautifulFilter = new BeautifulFilter("good");
-		List<Person> beautifulList = beautifulFilter.choose(list);
+		List<Person> beautifulList = beautifulFilter.choose(list);//过滤出Beautiful为good的人
 //		System.out.println(toString(beautifulList));
 		
-		List<Person> whiteAndwomenAndgood = beautifulFilter.choose(sexFilter.choose(skinFilter.choose(list)));
+		List<Person> whiteAndwomenAndgood = beautifulFilter.choose(sexFilter.choose(skinFilter.choose(list)));//过滤出漂亮白人
 		System.out.println(toString(whiteAndwomenAndgood));
 	}
 	

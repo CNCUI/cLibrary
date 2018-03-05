@@ -1,5 +1,10 @@
 package designPattern.singelTon;
 
+/**
+ * 静态内部类单例模式
+ * @author Cao
+ *
+ */
 public class Singleton2 {
 	/* 私有构造方法，防止被实例化 */
 	private Singleton2() {  

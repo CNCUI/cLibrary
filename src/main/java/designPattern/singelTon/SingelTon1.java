@@ -1,5 +1,10 @@
 package designPattern.singelTon;
 
+/**
+ * 懒汉式单例模式
+ * @author Cao
+ *
+ */
 public class SingelTon1 {
 	/* 持有私有静态实例，防止被引用，此处赋值为null，目的是实现延迟加载 */
 	private static SingelTon1 instance = null;

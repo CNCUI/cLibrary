@@ -1,15 +1,20 @@
 package designPattern.factory;
 
+/**
+ * 工厂模式
+ * @author Cao
+ *
+ */
 public class Factory {
-	// public Shape getShap(String shap){
-	// Shape s = null;
-	// if("Circle".equals(shap)){
-	// s = new Circle();
-	// }else if("Square".equals(shap)){
-	// s = new Square();
-	// }
-	// return s;
-	// }
+	public Shape getShap(String shap){
+		Shape s = null;
+		if("Circle".equals(shap)){
+			s = new Circle();
+		}else if("Square".equals(shap)){
+			s = new Square();
+		}
+		return s;
+	}
 
 	public static void main(String[] args) {
 		// Factory f = new Factory();
@@ -27,7 +32,7 @@ public class Factory {
 
 	/**
 	 * 拓展——使用反射机制可以解决每次增加一个产品时，都需要增加一个对象实现工厂的缺点
-	 * 
+	 * 住：spring也是利用反射加工厂模式来创建类，实现IOC   控制反转，对象的创建交给spring,业务类只是取对象
 	 * @param clazz
 	 * @return
 	 */
