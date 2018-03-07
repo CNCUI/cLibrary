@@ -8,5 +8,6 @@ public class RedisTest {
 		Jedis jedis = new Jedis("127.0.0.1",6379);
 		jedis.auth("111111");
 		System.out.println(jedis.keys("key001"));
+		
 	}
 }
