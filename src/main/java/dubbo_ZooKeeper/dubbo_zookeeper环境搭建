@@ -1,0 +1,33 @@
+<!-----window配置安装zookeeper----->
+1.下载zookeeper
+	官网:http://zookeeper.apache.org/
+	选择zookeeper-3.3.6.tar.gz，windows下也是这个
+	解压文件，进入E:\zookeeper-3.3.6\bin文件夹，双击运行zkServer.cmd
+	启动完成，cmd命令行输入jps可以查看是否启动
+2.下载dubbo-admin-2.5.8.war
+	放入tomcat中运行，注意需要修改tomcat端口，zookeeper会占用8080
+	可以在dubbo-admin-2.5.8/WEB-INF/dubbo.properties中修改ip，用户密码等配置
+3.打开浏览器访问http://localhost/dubbo-admin-2.5.8
+
+
+
+<!-----window命令行操作zookeeper----->
+启动zookeeper
+1. 打开命令行窗口
+	输入 cmd 打开命令行窗口
+2. 跳转到zookeeper目录
+3. 启动zookeeper
+	输入 zkServer.cmd  点击回车启动 zookeeper
+4. zk客户端操作
+	新开启一个命令行窗口，同样跳转到zookeeper/bin目录。执行zkCli -server 127.0.0.1:2181命令，连接成功，回车后即可输入zk命令操作。
+二、操作命令
+	建立节点   create /zk  hello
+	获得节点  get /zk 
+	设置节点 set /zk hello2
+	建立子节点  set /zk/subzk hello3
+	输出节点目录 ls /zk
+	删除节点  delete /zk
+	
+	
+	
+	
