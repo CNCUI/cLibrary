@@ -14,6 +14,8 @@ public class PrototypeTest {
 		
 		t2.str = "t2str";
 		t2.list.add("t2");
+		co c = new co("nnn");
+		t2.list.add(c);
 		
 		System.out.println(t1.list == t2.list);
 		t1.print();
