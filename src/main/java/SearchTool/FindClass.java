@@ -15,7 +15,7 @@ public class FindClass {
 		traverseFolder2("E:/jd-gui反编译/党团建设/党团建设");
 	}
 
-	public static String str = "TrigUPD销毁";
+	public static String str = "spring-scheduler";
 
 	public static void traverseFolder2(String path) {
 		File file = new File(path);

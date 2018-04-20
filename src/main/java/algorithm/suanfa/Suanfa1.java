@@ -2,6 +2,7 @@ package algorithm.suanfa;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Scanner;
@@ -170,10 +171,82 @@ public class Suanfa1 {
 		}
 		return set;
 	}
+	
+	/**
+	 * 360
+	 * 茉莉有一个画板，画板可以抽象成100行每行100个像素点的正方形。茉莉在画板上画画，一共画了n次，每次将一个矩形涂上颜色。茉莉想知道一共有多少个像素点被她涂过颜色。若一个像素点被涂了k次，那么认为有k个像素点被涂过颜色。
+		输入：
+		每一行一个数T（T<=100），表示数据组数。 
+		对于每组数据，第一行一个整数n，（1<=n<=100） 
+		接下来n行，每行4个整数x1,y1,x2,y2（1<=x1<=x2<=100, 1<=y1<=y2<=100）,表示两个矩形的两个对角所对应的像素点的坐标。
+	 * @param args
+	 */
+	public static void t6(){
+		Scanner s = new Scanner(System.in);
+		int c = s.nextInt();
+		int bsum = 0;
+		while(c-- >0){
+			int sum = 0;
+			int x1,y1,x2,y2;
+			x1 = s.nextInt();
+			y1 = s.nextInt();
+			x2 = s.nextInt();
+			y2 = s.nextInt();
+			sum = (x2-x1+1) * (y2-y1+1);
+			bsum += sum;
+		}
+		System.out.println(bsum);
+		
+	}
+	/**
+	 * 题目1：
+		茉莉邀请她的朋友参加周末派对，茉莉买了3种颜色的气球，现在她要有这些气球来装饰餐桌，每个餐桌只用恰好3个气球来装饰，要求3个气球颜色不能完全一样，可以是2或3种颜色，茉莉想知道这些气球最多能装饰多少张餐桌。
+		输入：
+		第一行一个数T（T<=100）,表示数据组数。 
+		对于每组数据，第一行3个整数r,g,b，分别表示三种颜色的气球个数（0<=r,g,b<=2*10^9）
+		输出：
+		对于每组数据，输出一行，一个整数表示最多能装饰的餐桌数量。
+		样例输入：
+		2
+		5 4 3
+		2 3 3
+		
+		2 3 13
+		样例输出：
+		4
+		2
+	 */
+	public static void t7(){
+		Scanner s = new Scanner(System.in);
+		int c = s.nextInt();
+		long[] sm = new long[c];
+		while(c-- >0){
+			long su;
+			long r,g,b;
+			r = s.nextInt();
+			g = s.nextInt();
+			b = s.nextInt();
+			long[] ss = {r,g,b};
+			Arrays.sort(ss);
+			// 2 3 6
+			if(ss[0]*2 + ss[1]*2 <= ss[2]){
+				su = ss[0]+ss[1];
+			}else{
+				su = (ss[0]+ss[1]+ss[2])/3;
+			}
+			sm[c] = su;
+		}
+		for(int i=sm.length-1;i>=0;i--){
+			System.out.println(sm[i]);
+		}
+		
+	}
 	public static void main(String[] args) {
-		t1();
+//		t1();
 //		t2();
 //		t3();
 //		t4();
+//		t6();
+//		t7();
     }
 }

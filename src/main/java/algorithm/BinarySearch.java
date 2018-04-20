@@ -42,6 +42,7 @@ public class BinarySearch {
 	 * @param arr
 	 * @param x
 	 * @return
+	 * 时间复杂度O(n)
 	 */
 	public static int[] efcr(int[] arr,int x){
 		int[] co = new int[arr.length+1];	//插入后数组

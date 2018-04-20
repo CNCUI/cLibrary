@@ -1,6 +1,7 @@
 package algorithm;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 /**
  * 二叉树
@@ -12,89 +13,73 @@ import java.util.List;
  *			/
  *		   7
  */
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
 public class BinTree {
 	private BinTree root;
-	private BinTree leftChild;
-	private BinTree rightChild;
+	private BinTree left;
+	private BinTree right;
 	private Object data;
-	private List<BinTree> datas;// 存储所有的节点
-
-	public BinTree(BinTree lChild, BinTree rChild, Object data) {
-		super();
-		this.leftChild = lChild;
-		this.rightChild = rChild;
-		this.data = data;
+	private List<BinTree> list;
+	
+	public BinTree(BinTree left1,BinTree right1,Object data1){
+		this.left = left1;
+		this.right = right1;
+		this.data = data1;
 	}
-
-	public BinTree(Object data) {
-		this(null, null, data);
+	public BinTree(Object data){
+		this(null,null,data);
 	}
-
-	public BinTree() {
+	public BinTree(){
 		super();
 	}
-
-	public void createTree(Object[] objs) {
-		datas = new ArrayList<BinTree>();
-		for (Object object : objs) {
-			datas.add(new BinTree(object));
+	public Object getData(){
+		return this.data;
+	}
+	public BinTree getRoot(){
+		return this.root;
+	}
+	public void createTree(Object[] objs){
+		list = new ArrayList<>();
+		for(Object obj : objs){
+			list.add(new BinTree(obj));
 		}
-		root = datas.get(0);// 将第一个作为根节点
-		for (int i = 0; i < objs.length / 2; i++) { // objs.length/2 标识二叉树的层数
-			datas.get(i).leftChild = datas.get(i * 2 + 1);			//奇数左孩子
-			if (i * 2 + 2 < datas.size()) {// 避免偶数的时候 下标越界
-				datas.get(i).rightChild = datas.get(i * 2 + 2);		//偶数右孩子
+		root = list.get(0);
+		for(int i=0;i<list.size() / 2;i++){
+			list.get(i).left = list.get(i*2+1);
+			if(i*2+2<list.size()){
+				list.get(i).right = list.get(i*2+2);
 			}
 		}
 	}
-
-	// 先序遍历
-	public void preorder(BinTree root) {
-		if (root != null) {
+	public void visit(Object obj){
+		System.out.println(obj);
+	}
+	public void preOrder(BinTree root){
+		if(root != null){
 			visit(root.getData());
-			preorder(root.leftChild);
-			preorder(root.rightChild);
+			preOrder(root.left);
+			preOrder(root.right);
 		}
-
 	}
-
-	// 中序遍历
-	public void inorder(BinTree root) {
-		if (root != null) {
-			inorder(root.leftChild);
-			visit(root.getData());
-			inorder(root.rightChild);
-		}
-
-	}
-
-	// 后序遍历
-	public void afterorder(BinTree root) {
-		if (root != null) {
-			afterorder(root.leftChild);
-			afterorder(root.rightChild);
-			visit(root.getData());
-		}
-
-	}
-
-	private void visit(Object obj) {
-		System.out.print(obj + " ");
-	}
-
-	public Object getData() {
-		return data;
-	}
-
-	public BinTree getRoot() {
-		return root;
-	}
-
+	
 	public static void main(String[] args) {
 		BinTree binTree = new BinTree();
-		Object[] objs = { 0, 2, 4, 5, 7, 8, 10, 11 };
+		Object[] objs = { 0, 1, 2, 3, 4, 5, 6, 7 };
 		binTree.createTree(objs);
-		binTree.preorder(binTree.getRoot()); //先序遍历
+		binTree.preOrder(binTree.getRoot()); //先序遍历
 		// binTree.inorder(binTree.getRoot()); //中序遍历
 		// binTree.afterorder(binTree.getRoot()); //后序遍历
 	}

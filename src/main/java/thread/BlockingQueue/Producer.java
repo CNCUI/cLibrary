@@ -27,8 +27,8 @@ public class Producer implements Runnable {
                 Thread.sleep(r.nextInt(DEFAULT_RANGE_FOR_SLEEP));
  
                 data = "data:" + count.incrementAndGet();
-                System.out.println("将数据：" + data + "放入队列...");
-                if (!queue.offer(data, 2, TimeUnit.SECONDS)) {
+                System.out.println("将数据：" + data + "放入队列...");   //成功返回true,否则返回false
+                if (!queue.offer(data, 2, TimeUnit.SECONDS)) {//设定等待的时间，如果在指定的时间内，还不能往队列中　加入BlockingQueue，则返回失败。
                     System.out.println("放入数据失败：" + data);
                 }
             }

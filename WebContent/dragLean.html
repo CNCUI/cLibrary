@@ -1,0 +1,215 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>js div拖动动画运行轨迹效果代码</title>
+ 
+<style type="text/css">
+*{margin:0px;padding:0px;}
+#div1{position:relative;left:200px;top:200px;width:100px; height:100px; background-color:#f60;cursor:move;}
+</style>
+ 
+<script type="text/javascript">
+var isIE = (document.all)?true:false;
+ 
+var $ID = function(id){
+ return "string"==typeof id?document.getElementById(id):id;
+}
+ 
+var Class = {
+ create:function(){
+ return function(){
+  this.initilize.apply(this,arguments);
+ }
+ }
+}
+ 
+var Extend = function(destination, source){
+ for(var property in source){
+ destination[property] = source[property];
+ }
+}
+ 
+var Bind = function(object,fun){
+ var args = Array.prototype.slice.call(arguments).slice(2);
+ return function(){
+ return fun.apply(object,args);
+ }
+}
+ 
+var BindAsEventListener = function(object,fun){
+ var args = Array.prototype.slice.call(arguments).slice(2);
+ return function(event){
+ return fun.apply(object,[event||window.event].concat(args));
+ }
+}
+ 
+function addEventHandler(oTarget, sEventType, fnHandler) {
+ if (oTarget.addEventListener) {
+ oTarget.addEventListener(sEventType, fnHandler, false);
+ } else if (oTarget.attachEvent) {
+ oTarget.attachEvent("on" + sEventType, fnHandler);
+ } else {
+ oTarget["on" + sEventType] = fnHandler;
+ }
+};
+ 
+function removeEventHandler(oTarget, sEventType, fnHandler) {
+ if (oTarget.removeEventListener) {
+ oTarget.removeEventListener(sEventType, fnHandler, false);
+ } else if (oTarget.detachEvent) {
+ oTarget.detachEvent("on" + sEventType, fnHandler);
+ } else { 
+ oTarget["on" + sEventType] = null;
+ }
+};
+ 
+function getNodePosition(node,type){//type="left"or"top"
+ var nodeTemp = node;
+ var l = 0;
+ var t = 0;
+ while(nodeTemp!=document.body&&nodeTemp!=null){
+ l += nodeTemp.offsetLeft;
+ t += nodeTemp.offsetTop;
+ nodeTemp = nodeTemp.offsetParent;
+ }
+ if(type.toLowerCase()=="left") return l;
+ else return t;
+}
+//前面通常都用一个base.js封装
+</script>
+ 
+<script type="text/javascript">
+var MyDrag = Class.create();
+ 
+MyDrag.prototype = {
+ initilize:function(obj){
+ this.Obj = $ID(obj);
+ this._x = this._y = 0;
+ this._xx = this._yy = 0;//Move记录坐标
+ this.Obj.style.position = "absolute";
+ this._pos = [];
+ this._ifSavePos = true;
+ this._t = null;
+ this._speed = 10;
+ this._indexMove = 0;//全局的MoveIndex
+ this._fnStart = BindAsEventListener(this,this.Start); 
+ this._fnMove = BindAsEventListener(this,this.Move);
+ this._fnStop = Bind(this,this.Stop);
+ addEventHandler(this.Obj,"mousedown",this._fnStart);
+ },
+ Start:function(oEvent){
+ if(!this._ifSavePos)
+ this._pos = [];
+ this.Drag = this.Obj.cloneNode(true);
+ if(isIE) this.Drag.style.filter = "alpha(opacity=50)";
+ else this.Drag.style.opacity = "0.5";
+ this.Obj.parentNode.appendChild(this.Drag);
+ 
+ this._left1 = this._xx = getNodePosition(this.Obj,"left");
+ this._top1 = this._yy = getNodePosition(this.Obj,"top");
+ this._x = oEvent.clientX - this.Obj.offsetLeft;
+ this._y = oEvent.clientY - this.Obj.offsetTop;
+ addEventHandler(document,"mousemove",this._fnMove);
+ addEventHandler(document,"mouseup",this._fnStop);
+ this._t = setInterval(Bind(this,this.SavePos),10);
+ },
+ SavePos:function(){//记录坐标点
+ this._pos.push(this._xx + "_" + this._yy);
+ },
+ Move:function(oEvent){
+ if(isIE) oEvent.returnValue = false;
+ this._xx = oEvent.clientX - this._x;
+ this._yy = oEvent.clientY - this._y;
+ this.Drag.style.left = this._xx + "px";
+ this.Drag.style.top = this._yy + "px";
+ },
+ Stop:function(){
+ removeEventHandler(document,"mousemove",this._fnMove);
+ removeEventHandler(document,"mouseup",this._fnStop);
+ this.Obj.parentNode.removeChild(this.Drag);
+ this.Obj.style.left = this._xx + "px";
+ this.Obj.style.top = this._yy + "px";
+ clearInterval(this._t);
+ this._fnCloneMove = Bind(this,this.CloneMove);
+ this._t = setTimeout(this._fnCloneMove,50);
+ },
+ CloneMove:function(){
+ if(this._indexMove<6){
+  new ObjMove({x1:this._left1,y1:this._top1,x2:this._xx,y2:this._yy,pos:this._pos});
+  this._indexMove++;
+  this._t = setTimeout(this._fnCloneMove,50);
+ }else{
+  clearTimeout(this._t);
+  this._indexMove = 0;
+ }
+ }
+}
+ 
+var ObjMove = Class.create();
+ ObjMove.prototype = {
+ initilize:function(options){
+ this.SetOptions(options);
+ this.Obj = document.createElement("DIV");
+ this.Obj.style.cssText = "position:absolute;left:"+ this.options.x1 +"px;top:"+ this.options.y1 +"px;width:100px;height:100px;background-color:#f60;fliter:alpha(opacity=100);opacity:1;";
+ document.body.appendChild(this.Obj);
+ this.Move2();
+ },
+ SetOptions: function(options) {
+ this.options = {//默认值
+  x1:   0,
+  y1: 0,
+  x2: 0,
+  y2: 0,
+  pos: []
+ };
+ Extend(this.options, options || {});
+ },
+ Move2:function(){
+ this._indexMove = 0;
+ this._fnMovePos = Bind(this,this.MovePos);
+ this._t = setInterval(this._fnMovePos,10);
+ },
+ MovePos:function(){
+ if(this._indexMove>=this.options.pos.length){
+  this.options.pos = [];
+  document.body.removeChild(this.Obj);
+  clearInterval(this._t);
+ }else{
+  this.Obj.style.left = this.options.pos[this._indexMove].split("_")[0] + "px";
+  this.Obj.style.top = this.options.pos[this._indexMove].split("_")[1] + "px";
+ }
+ this._indexMove++;
+ }
+}
+ 
+onload = function(){
+ var myDrag = new MyDrag("div1");
+ $ID("rad1").onclick = function(){
+ myDrag._ifSavePos = true;
+ }
+ $ID("rad2").onclick = function(){
+ myDrag._ifSavePos = false;
+ }
+}
+</script>
+ 
+</head>
+<body>
+<center><br>
+<div>随意拖动那个小方块几秒钟</div><br>
+ 
+<label for="rad1"><input type="radio" id="rad1" name="rad" checked="checked"/>记住轨迹</label>
+ 
+<label for="rad2"><input type="radio" id="rad2" name="rad"/>不记住轨迹</label>
+ 
+<div id="div1"></div>
+</center>
+ 
+<div style="text-align:center;margin:50px 0; font:normal 14px/24px 'MicroSoft YaHei';">
+<p>适用浏览器：IE8、360、FireFox、Chrome、Safari、Opera、傲游、搜狗、世界之窗. </p>
+<p>来源：<a href="http://www.jb51.net/" target="_blank">脚本之家</a></p>
+</div>
+ 
+</body>
+</html>

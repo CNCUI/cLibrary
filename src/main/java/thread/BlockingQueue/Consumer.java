@@ -19,7 +19,8 @@ public class Consumer implements Runnable {
         try {
             while (isRunning) {
                 System.out.println("正从队列获取数据...");
-                String data = queue.poll(2, TimeUnit.SECONDS);
+                String data = queue.poll(2, TimeUnit.SECONDS);//从BlockingQueue取出一个队首的对象，如果在指定时间内，
+//队列一旦有数据可取，则立即返回队列中的数据。否则知道时间超时还没有数据可取，返回null。
                 if (null != data) {
                     System.out.println("拿到数据：" + data);
                     System.out.println("正在消费数据：" + data);

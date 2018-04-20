@@ -25,36 +25,41 @@ class postUtl implements Runnable{
 	private static AtomicInteger tag = new AtomicInteger(0);
 	@Override
 	public void run() {
-		Thread m = Thread.currentThread();
-		m.setName("t"+tag.incrementAndGet());
-		System.out.println(m.getName());
 		URL url;
 		try {
-			url = new URL("http://localhost/we/login_test.t");
+			url = new URL("http://localhost/we/ys_test.t");
 			InputStreamReader isr = new InputStreamReader(url.openStream());
 			BufferedReader br = new BufferedReader(isr);
 			String str;
 			while ((str = br.readLine()) != null) {
-				System.out.println(str);
+//				System.out.println(str);
 			}
 			br.close();
 			isr.close();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
+		if("pool52".equals(Thread.currentThread().getName())){
+			System.out.println("指定线程");
+		}
+		System.out.println(Thread.currentThread().getName());
 	}
 	
 }
 
+/**
+ * 给线程设置名称
+ * @author Cao
+ */
 class NamedThreadFactory implements ThreadFactory{
-	  
-    private static AtomicInteger tag = new AtomicInteger(0);  
+    private static AtomicInteger tag = new AtomicInteger(52); 
+//    private  volatile int aa = 68;
     @Override  
-    public Thread newThread(Runnable r) {  
+    public Thread newThread(Runnable r) {
         Thread thread = new Thread(r);  
         thread.setName("pool"+ tag.getAndIncrement());  
+//        thread.setName("pool"+ ++aa);  
         return thread;  
-    }  
-      
+    }
+    
 } 
