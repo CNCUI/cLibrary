@@ -29,5 +29,11 @@
 	删除节点  delete /zk
 	
 	
+查找zookeeper所在位置
+	find / -name zookeeper
+linux下重启zookeeper
+	zkServer.sh restart
 	
+	
+	service iptables restart
 	
